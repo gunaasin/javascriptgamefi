@@ -1,0 +1,261 @@
+.app {
+    display: flex;
+    flex-direction: row;
+}
+
+.logoimg {
+    position: absolute;
+    top: 0;
+    width: 170px;
+    height: 80px;
+    z-index: 1;
+}
+
+.nav-component {
+    /* border-right: 0.2px solid gray; */
+    height: 100vh;
+    width: 260px;
+    margin-top: 30px;
+    padding-right: 15px;
+}
+
+.nav-Link {
+    background-color: #130d1e;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 8px 0px;
+    padding-left: 8px;
+    border-radius: 4px;
+
+}
+
+.nav-Link:hover {
+    /* font-weight: 500; */
+    font-size: 15px;
+    padding-left: 15px;
+    background-color: #F7BB0E;
+    margin: 8px 5px;
+    transition: 0.4s ease-in-out;
+    color: #130d1e;
+
+}
+
+.nav-Link h3 {
+    padding-left: 10px;
+    font-size: 16px;
+
+}
+
+/* mainbox */
+
+.Main-box {
+    display: flex;
+    flex-direction: column;
+}
+
+/* topnav */
+.main-structre {
+    width: 80vw;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-structre h2 {
+    color: #F7BB0E;
+    padding: 15px 120px 5px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    top: -27px;
+}
+
+.righttopnav {
+    display: flex;
+}
+
+.righttopnav span {
+    height: 50px;
+    width: 60px;
+    padding: 4px 6px;
+    font-size: medium;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #F7BB0E;
+    color: #130d1e;
+}
+
+.righttopnav button {
+    position: relative;
+    top: -18px;
+    font-weight: 600;
+    left: -100px;
+    width: 100px;
+    height: 41px;
+    border-radius: 6px;
+    color: #3bb9ca;
+    border: 1.5px solid #1A99AA;
+    transition: 0.2s ease-in-out;
+
+}
+
+.righttopnav button:hover {
+    background-color: #1a99aa4c;
+}
+
+/* main */
+.main-box {
+    width: 180vh;
+    height: 90vh;
+    position: relative;
+    top: -20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.leftbox {
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rightbox {
+    width: 45%;
+    height: 100%;
+}
+
+
+.game-box {
+    width: 675px;
+    height: 400px;
+    background-color: #130d1e;
+    margin: 5px;
+}
+
+.hint-box {
+    margin: 5px;
+    width: 98%;
+    height: 300px;
+    background-color: #130d1e;
+    padding: 10px 5px 5px 40px;
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+
+}
+
+.hint-box ul {
+    margin: 10px ;
+}
+
+/* .hint-box :hover{
+    overflow: scroll;
+    overflow-x: hidden;
+} */
+.hint-box h2 {
+    font-size: 23px;
+    font-weight: 450;
+}
+
+.hint-box li {
+    line-height: 30px;
+    margin: 20px 0px;
+    transition: 0.3s ease-out;
+}
+
+.hint-box li:hover{
+    color: rgba(240, 255, 255, 0.705);
+   
+}
+
+.terminal {
+    width: 98%;
+    height: 380px;
+    background-color: #130d1e;
+    margin: 5px;
+
+}
+
+.console {
+    margin: 50px 5px;
+    width: 98%;
+    height: 185px;
+    background-color: #130d1e;
+}
+.css-1t30oyw{
+    position: relative;
+    top: -50px;
+}
+.css-1ojljio{
+    position: relative;
+    top: -50px;
+
+}
+
+.chakra-stack css-1rafi8n {
+    display: flex;
+    flex-direction: row;
+}
+
+.css-1ttywp7 {
+    position: absolute;
+    right: -5px;
+    top: 340px;
+
+}
+
+.chakra-text {
+    position: relative;
+    top: 55px;
+    padding-top: -55px;
+}
+
+.chakra-button {
+    position: absolute;
+    right: -450px;
+    top: -423px;
+}
+
+.testcase .blutext {
+    padding-top: 20px;
+    color: rgba(202, 206, 224, 0.74);
+    z-index: -2;
+    position: absolute;
+    top: 5px ;
+    left:  5px;
+    width: 675px;
+   background-color: transparent;
+    height: 380px;
+    position: absolute;
+    text-align: center;
+}
+
+
+.testcase .redtext{
+    font-size: larger;
+    font-weight: 500;
+    border: 1px solid red;
+    padding-top: 20px;
+    color: rgba(255, 41, 41, 0.74);
+    z-index: 2;
+    position: absolute;
+    top: 5px ;
+    left:  5px;
+    width: 675px;
+   background-color: rgba(255, 0, 0, 0.062);
+    height: 380px;
+    position: absolute;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+.emptycom{
+    display: none;
+}
