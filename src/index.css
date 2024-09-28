@@ -8,3 +8,7 @@ body{
     scroll-behavior:smooth ;
 }
 
+::selection {
+    background-color: #F7BB0E;
+    color: #0f0a18; 
+}
