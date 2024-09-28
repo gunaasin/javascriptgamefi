@@ -6,7 +6,7 @@ import React from 'react'
 
 export const Outputplay = () => {
   return (
-  <> &nbsp;<i class="fa-solid fa-play"></i></>
+  <> </>
   )
 }
 
@@ -40,11 +40,15 @@ const Output = ({ editorRef, language }) => {
   };
 
   return (
-    <Box w="45%">
+    <Box width="30%" mt='10px'>
       <Text mb={2} fontSize="lg">
-        Output :
+        Console :
       </Text>
       <Button
+        position="absolute"
+        top="0px"
+        margin={4}
+        right="5px"
         variant="outline"
         colorScheme="green"
         mb={4}
@@ -54,11 +58,13 @@ const Output = ({ editorRef, language }) => {
         Run Code<Outputplay/>
       </Button>
       <Box
-        height="75vh"
+        height="61vh" 
+        w='36vw'
         p={2}
         color={isError ? "red.400" : ""}
-        border="px solid"
+        border=" 1px solid "
         borderRadius={4}
+        bg={isError?"#af10102b" :"#130D1E"}
         borderColor={isError ? "red.500" : "#333"}
         
       >

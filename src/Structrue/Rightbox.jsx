@@ -1,14 +1,14 @@
 import React from 'react'
 import Output from '../components/Output'
 import CodeEditor from '../components/CodeEditor'
+import { Box } from '@chakra-ui/react'
 
 export const Rightbox = (prop) => {
   return (
-    <div className='rightbox'>
-        <div className="terminal">
+    <Box>
+        <Box>
             <CodeEditor answer={prop.answer}   codesnip={prop.codesnip}/>
-        </div>
-        <div className="console"></div>
-    </div>
+        </Box>
+    </Box>
   )
 }

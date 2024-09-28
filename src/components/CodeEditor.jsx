@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
-import { Box, HStack } from "@chakra-ui/react";
+import { Box} from "@chakra-ui/react";
 import { Editor } from "@monaco-editor/react";
-// import LanguageSelector from "./LanguageSelector";
 import { CODE_SNIPPETS } from "../constants";
 import Output from "./Output";
 import { ChildComponent } from "../componentcount/Component1";
@@ -11,7 +10,7 @@ const CodeEditor = (prop) => {
   const editorRef = useRef();
   const [value, setValue] = useState("");
   const [language, setLanguage] = useState("javascript");
-  const [runCodeData, setRunCodeData] = useState(null); // State to hold runCode data
+  const [runCodeData, setRunCodeData] = useState(null);
 
 
   const onMount = (editor) => {
@@ -25,18 +24,18 @@ const CodeEditor = (prop) => {
   };
 
   const runCode = () => {
-    // Get the code entered by the user
+
     const userCode = editorRef.current.getValue().replace(/\s/g, '');
-    // Remove whitespace from the codesnip
+
     const cleanCodeSnip = prop.answer[language].replace(/\s/g, '');
-    // Check if the user code is equal to the codesnip (ignoring whitespace)
+
     if (userCode === cleanCodeSnip) {
       setRunCodeData(true);
     } else {
       setRunCodeData(false);
     }
   };
-  
+
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -45,32 +44,28 @@ const CodeEditor = (prop) => {
 
   return (
     <Box>
-      <HStack spacing={4}>
-        <Box w="100%">
-          {/* <LanguageSelector language={language} onSelect={onSelect} /> */}
+      
+        <Box >
           <Editor
             options={{
               minimap: {
                 enabled: false,
               },
             }}
-            height="55vh"
+            height="60vh"
+            width="36vw"
             theme="vs-dark"
             language={language}
             defaultValue={prop.codesnip[language]}
             onMount={onMount}
             value={value}
             onChange={handleChange}
-          // onChange={(value) => setValue(value)}
+
           />
         </Box>
         <Output editorRef={editorRef} language={language} runcode={runCode} />
-        
-      
-        <div className="emptycom"><Game runCodeData={runCodeData}/></div>
-        <ChildComponent  runCodeData={runCodeData}/>
-
-      </HStack>
+        <Box className="emptycom"><Game runCodeData={runCodeData} /></Box>
+        <ChildComponent runCodeData={runCodeData} />
     </Box>
   );
 };

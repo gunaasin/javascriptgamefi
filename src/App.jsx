@@ -1,7 +1,7 @@
-import { Box } from "@chakra-ui/react";
-// import { Maincom } from "./Structrue/Maincom";
-// import CodeEditor from "./components/CodeEditor";
+import { Box, Flex } from "@chakra-ui/react";
 import './App.css';
+import React, { useEffect } from 'react';
+
 import { Navbar } from "./Structrue/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Component1 } from "./componentcount/Component1";
@@ -15,13 +15,42 @@ import { Component8 } from "./componentcount/Component8";
 import { Component9 } from "./componentcount/Component9";
 import { Component10 } from "./componentcount/Component10";
 
-function App() {
-  return (
-    <Box minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8} className="app">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
 
+
+function App() {
+  useEffect(() => {
+    const resetZoom = () => {
+      document.body.style.transform = "scale(1)";
+      document.body.style.transformOrigin = "0 0";
+    };
+    const detectZoom = () => {
+      const zoomLevel = window.devicePixelRatio || 1;
+      if (zoomLevel !== 1) {
+        resetZoom();
+      }
+    };
+
+    window.addEventListener('resize', detectZoom);
+    window.addEventListener('wheel', detectZoom);
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '-' || e.key === '0' || (e.key === '+' && e.shiftKey))) {
+        e.preventDefault();
+        resetZoom(); 
+      }
+    });
+    return () => {
+      window.removeEventListener('resize', detectZoom);
+      window.removeEventListener('wheel', detectZoom);
+      window.removeEventListener('keydown', detectZoom);
+    };
+  }, []);
+  return (
+    <Box  bg="#0f0a19" color="gray.500"  className="app">
+      <BrowserRouter>
+      <Flex>
+        <Navbar />
+        
+        <Routes>
           <Route path="/" element={<Component1 />} />
           <Route path="/Component2" element={<Component2 />} />
           <Route path="/Component3" element={<Component3 />} />
@@ -34,9 +63,9 @@ function App() {
           <Route path="/Component10" element={<Component10 />} />
 
         </Routes>
+        </Flex>
 
       </BrowserRouter>
-
     </Box>
   );
 }
