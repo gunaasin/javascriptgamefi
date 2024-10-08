@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import { Maincom } from '../Structrue/Maincom'
 
 
@@ -66,16 +66,72 @@ export const Component1 = () => {
     // Start the game
     startGame();`}
 
+
+
+    
+  //  encript the url data
+  const lang = 'javascript';
+  const [encryptedURL, setEncryptedURL] = useState("");
+  const encryptAndEncodeURL = async (data, password) => {
+    const enc = new TextEncoder();
+    const encodedPassword = enc.encode(password);
+
+    const key = await crypto.subtle.importKey(
+      "raw",
+      encodedPassword,
+      { name: "PBKDF2" },
+      false,
+      ["deriveKey"]
+    );
+
+    const aesKey = await crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: enc.encode("some-salt"), 
+        iterations: 100000,
+        hash: "SHA-256"
+      },
+      key,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+
+    const iv = crypto.getRandomValues(new Uint8Array(12)); 
+    const encrypted = await crypto.subtle.encrypt(
+      {
+        name: "AES-GCM",
+        iv: iv
+      },
+      aesKey,
+      enc.encode(data)
+    );
+
+    const encryptedBase64 = btoa(String.fromCharCode(...new Uint8Array(encrypted)));
+    const ivBase64 = btoa(String.fromCharCode(...iv));
+    return { encryptedBase64, ivBase64 };
+  };
+  useEffect(() => {
+    const encryptData = async () => {
+      
+      const dataToEncrypt = "https://videos.sproutvideo.com/embed/4491d1b21613e1c8cd/c88103b34ff48db1";
+      const password = "guna-techy@codingGame";
+      const { encryptedBase64, ivBase64 } = await encryptAndEncodeURL(dataToEncrypt, password);
+      const finalEncryptedURL = `https://videoconsole-lac.vercel.app/?game=${encodeURIComponent(encryptedBase64)}&iv=${encodeURIComponent(ivBase64)}&lang=${lang}`;
+      setEncryptedURL(finalEncryptedURL);
+    };
+
+    encryptData(); 
+  }, []);
+
   return (
     <>
       
       <Maincom
 
         game={'https://gunaasin.github.io/firegunfire/'}
-       
-        url={'https://videoconsole-lac.vercel.app/?url=https://videos.sproutvideo.com/embed/7990d5b11a19e4c4f0/36b0387ef01e5893'}
-        
-       
+        url={encryptedURL}
+      
         steps={[
           'Define a fetchData function that simulates fetching data from a server asynchronously using a Promise. The function returns a Promise that resolves with the fetched data after a simulated delay of 2 seconds.',
           'The startGame function serves as the entry point for the game. It initiates the quest to fetch data from the server using asynchronous code. Inside the function, we use await to wait for the fetchData promise to resolve, and then log the fetched data to the console.',
@@ -88,6 +144,7 @@ export const Component1 = () => {
 
           `      Asynchronous programming is a programming paradigm that allows tasks to be executed independently of the main program flow. In other words, instead of waiting for a task to complete before moving on to the next one, asynchronous programming enables tasks to be executed concurrently, improving efficiency and responsiveness in applications.`
         ]}
+
         title={"Asynchronous Programming"}
         answer={answer}
         codesnip={codesnip}
@@ -100,28 +157,6 @@ export const Component1 = () => {
 
 
 export const ChildComponent = ({ runCodeData}) => {
-  // const [runCodeData] = useState(null);
-  // const updateRunCodeData = (newValue) => {
-  //   setRunCodeData(newValue);
-  // };
-  
-  // // Function to simulate an event triggering the update of runCodeData
-  // const simulateEvent = () => {
-  //   // Example: Simulate an event (e.g., a timer, API response, etc.) that triggers the update of runCodeData
-  //   setTimeout(() => {
-  //     updateRunCodeData(true); // or false, or null, depending on your logic
-  //   }, 2000); // Simulating a 3-second delay before updating runCodeData
-  // };
-
-  // // When runCodeData changes, log its value
-  // useEffect(() => {
-  //   console.log("runCodeData changed:", runCodeData);
-  // }, [runCodeData]);
-
-  // // Simulate an event that triggers the update of runCodeData when the component mounts
-  // useEffect(() => {
-  //   simulateEvent();
-  // }, []); // 
 
   return (
     <div className='testcase' >

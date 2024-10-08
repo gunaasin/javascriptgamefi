@@ -12,6 +12,61 @@ export const Component6 = () => {
     
     
     `}
+    
+  //  encript the url data
+  const lang = 'javascript';
+  const [encryptedURL, setEncryptedURL] = useState("");
+  const encryptAndEncodeURL = async (data, password) => {
+    const enc = new TextEncoder();
+    const encodedPassword = enc.encode(password);
+    const key = await crypto.subtle.importKey(
+      "raw",
+      encodedPassword,
+      { name: "PBKDF2" },
+      false,
+      ["deriveKey"]
+    );
+
+    const aesKey = await crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: enc.encode("some-salt"),
+        iterations: 100000,
+        hash: "SHA-256"
+      },
+      key,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encrypted = await crypto.subtle.encrypt(
+      {
+        name: "AES-GCM",
+        iv: iv
+      },
+      aesKey,
+      enc.encode(data)
+    );
+
+    const encryptedBase64 = btoa(String.fromCharCode(...new Uint8Array(encrypted)));
+    const ivBase64 = btoa(String.fromCharCode(...iv));
+    return { encryptedBase64, ivBase64 };
+  };
+  useEffect(() => {
+    const encryptData = async () => {
+
+      const dataToEncrypt = "https://videos.sproutvideo.com/embed/4491d1b21613e1c8cd/c88103b34ff48db1";
+      const password = "guna-techy@codingGame";
+      const { encryptedBase64, ivBase64 } = await encryptAndEncodeURL(dataToEncrypt, password);
+      const finalEncryptedURL = `https://videoconsole-lac.vercel.app/?game=${encodeURIComponent(encryptedBase64)}&iv=${encodeURIComponent(ivBase64)}&lang=${lang}`;
+      setEncryptedURL(finalEncryptedURL);
+    };
+
+    encryptData();
+  }, []);
+
   return (
     <>
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState , useEffect } from 'react'
 import { Maincom } from '../Structrue/Maincom'
 export const Component5 = () => {
   const codesnip = {
@@ -58,12 +58,68 @@ if (num) {
   }  
       
       `}
+
+      
+  //  encript the url data
+  const lang = 'javascript';
+  const [encryptedURL, setEncryptedURL] = useState("");
+  const encryptAndEncodeURL = async (data, password) => {
+    const enc = new TextEncoder();
+    const encodedPassword = enc.encode(password);
+    const key = await crypto.subtle.importKey(
+      "raw",
+      encodedPassword,
+      { name: "PBKDF2" },
+      false,
+      ["deriveKey"]
+    );
+
+    const aesKey = await crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: enc.encode("some-salt"),
+        iterations: 100000,
+        hash: "SHA-256"
+      },
+      key,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encrypted = await crypto.subtle.encrypt(
+      {
+        name: "AES-GCM",
+        iv: iv
+      },
+      aesKey,
+      enc.encode(data)
+    );
+
+    const encryptedBase64 = btoa(String.fromCharCode(...new Uint8Array(encrypted)));
+    const ivBase64 = btoa(String.fromCharCode(...iv));
+    return { encryptedBase64, ivBase64 };
+  };
+  useEffect(() => {
+    const encryptData = async () => {
+
+      const dataToEncrypt = "https://videos.sproutvideo.com/embed/4491d1b21613e1c8cd/c88103b34ff48db1";
+      const password = "guna-techy@codingGame";
+      const { encryptedBase64, ivBase64 } = await encryptAndEncodeURL(dataToEncrypt, password);
+      const finalEncryptedURL = `https://videoconsole-lac.vercel.app/?game=${encodeURIComponent(encryptedBase64)}&iv=${encodeURIComponent(ivBase64)}&lang=${lang}`;
+      setEncryptedURL(finalEncryptedURL);
+    };
+
+    encryptData();
+  }, []);
+
   return (
     <>
     <Maincom  title={" Type Coercion"}
     game={"https://gunaasin.github.io/typecongame/"}
     
-    url={'https://videoconsole-lac.vercel.app/?url=https://videos.sproutvideo.com/embed/d390d5b11a1aeecf5a/6842ea9b6d74ea35'}
+    url={encryptedURL}
       steps={['Type coercion is the process of automatically converting one data type to another in programming. It happens implicitly, often during operations involving different data types. Here a breakdown to explain type coercion:',
         'Step 1:  create let num = "10"; &  let blue = "10";',
       ' Implicit Conversion: Type coercion occurs automatically by the programming language, without the programmer explicitly writing conversion code. It allows the language to handle mixed data types in operations and comparisons.',
