@@ -129,7 +129,7 @@ export const Component7 = () => {
     useEffect(() => {
         const encryptData = async () => {
 
-            const dataToEncrypt = "https://videos.sproutvideo.com/embed/4491d1b21613e1c8cd/c88103b34ff48db1";
+            const dataToEncrypt = "https://drive.google.com/file/d/1jwJf5TSB8fHhuTZC3kGy32P4SGJkGxT2/preview";
             const password = "guna-techy@codingGame";
             const { encryptedBase64, ivBase64 } = await encryptAndEncodeURL(dataToEncrypt, password);
             const finalEncryptedURL = `https://videoconsole-lac.vercel.app/?game=${encodeURIComponent(encryptedBase64)}&iv=${encodeURIComponent(ivBase64)}&lang=${lang}`;
